@@ -31,6 +31,7 @@
 "    Richard Bateman <taxilian@gmail.com>
 "    Steve Francia <spf13-vim@spf13.com>
 
+let g:vim_debugger_port = get(g:, 'vim_debugger_port', 9000)
 
 
 function s:VimDebuggerInit()
@@ -512,7 +513,7 @@ class DBGPDebuggerWrapper:
         except:
             pass
         vim.command("echo 'Waiting for connection...'")
-        connected = self.debugger.listenWait("localhost", 9000)
+        connected = self.debugger.listenWait("localhost", vim.eval('g:vim_debugger_port'))
         if connected:
             self.activateUI()
             self.stepInto()
